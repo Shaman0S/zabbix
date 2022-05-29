@@ -13,15 +13,15 @@ class CControllerTwofaEdit extends CController {
 	 */
 	protected function checkInput() {
 		$fields = [
-			'2fa_type' =>			'db config.2fa_type',
+			'twofa_type' =>			'db config.twofa_type',
 			'form_refresh' =>		'string',
 			// actions
 			'update' =>			'string',
 			// DUO 2FA
-			'2fa_duo_api_hostname' =>	'db config.2fa_duo_api_hostname',
-			'2fa_duo_integration_key' => 	'db config.2fa_duo_integration_key',
-			'2fa_duo_secret_key' =>		'db config.2fa_duo_secret_key',
-			'2fa_duo_a_key' =>		'db config.2fa_duo_a_key'
+			'twofa_duo_api_hostname' =>	'db config.twofa_duo_api_hostname',
+			'twofa_duo_integration_key' => 	'db config.twofa_duo_integration_key',
+			'twofa_duo_secret_key' =>	'db config.twofa_duo_secret_key',
+			'twofa_duo_a_key' =>		'db config.twofa_duo_a_key'
 		];
 
 		$ret = $this->validateInput($fields);
@@ -64,11 +64,11 @@ class CControllerTwofaEdit extends CController {
 		if ($this->hasInput('form_refresh')) {
 			$this->getInputs($data, [
 				'form_refresh',
-				'2fa_type',
-				'2fa_duo_api_hostname',
-				'2fa_duo_integration_key',
-				'2fa_duo_secret_key',
-				'2fa_duo_a_key',
+				'twofa_type',
+				'twofa_duo_api_hostname',
+				'twofa_duo_integration_key',
+				'twofa_duo_secret_key',
+				'twofa_duo_a_key',
 			]);
 
 			$data += $twofa;
@@ -78,7 +78,7 @@ class CControllerTwofaEdit extends CController {
 		}
 
 		$response = new CControllerResponseData($data);
-		$response->setTitle(twofa2str($data['2fa_type']));
+		$response->setTitle(twofa2str($data['twofa_type']));
 		$this->setResponse($response);
 	}
 }

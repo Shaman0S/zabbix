@@ -257,7 +257,7 @@ class CAudit {
 		],
 		self::RESOURCE_USER => ['paths' => ['user.passwd']],
 		self::RESOURCE_TWOFA => [
-			'paths' => ['twofa.2fa_duo_integration_key', 'twofa.2fa_duo_secret_key']
+			'paths' => ['twofa.twofa_duo_integration_key', 'twofa.twofa_duo_secret_key']
 		]
 	];
 

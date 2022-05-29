@@ -24,8 +24,8 @@ class CTwofa extends CApiService {
 	 * @var array
 	 */
 	private $output_fields = [
-		'2fa_type', '2fa_duo_api_hostname', '2fa_duo_integration_key',
-		'2fa_duo_secret_key', '2fa_duo_a_key'
+		'twofa_type', 'twofa_duo_api_hostname', 'twofa_duo_integration_key',
+		'twofa_duo_secret_key', 'twofa_duo_a_key'
 	];
 
 	/**
@@ -76,8 +76,8 @@ class CTwofa extends CApiService {
 
 		// strings
 		$field_names = [
-			'2fa_duo_api_hostname', '2fa_duo_integration_key',
-			'2fa_duo_secret_key', '2fa_duo_a_key'
+			'twofa_duo_api_hostname', 'twofa_duo_integration_key',
+			'twofa_duo_secret_key', 'twofa_duo_a_key'
 		];
 		foreach ($field_names as $field_name) {
 			if (array_key_exists($field_name, $twofa) && $twofa[$field_name] !== $db_twofa[$field_name]) {
@@ -86,7 +86,7 @@ class CTwofa extends CApiService {
 		}
 
 		// integers
-		$field_names = ['2fa_type'];
+		$field_names = ['twofa_type'];
 		foreach ($field_names as $field_name) {
 			if (array_key_exists($field_name, $twofa) && $twofa[$field_name] != $db_twofa[$field_name]) {
 				$upd_config[$field_name] = $twofa[$field_name];
@@ -118,11 +118,11 @@ class CTwofa extends CApiService {
 	 */
 	protected function validateUpdate(array $twofa): array {
 		$api_input_rules = ['type' => API_OBJECT, 'flags' => API_NOT_EMPTY, 'fields' => [
-			'2fa_type' =>				['type' => API_INT32, 'in' => ZBX_AUTH_2FA_NONE.','.ZBX_AUTH_2FA_DUO.','.ZBX_AUTH_2FA_GGL],
-			'2fa_duo_api_hostname' =>		['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', '2fa_duo_api_hostname')],
-			'2fa_duo_integration_key' =>		['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', '2fa_duo_integration_key')],
-			'2fa_duo_secret_key' =>			['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', '2fa_duo_secret_key')],
-			'2fa_duo_a_key' =>			['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', '2fa_duo_a_key')],
+			'twofa_type' =>				['type' => API_INT32, 'in' => ZBX_AUTH_2FA_NONE.','.ZBX_AUTH_2FA_DUO.','.ZBX_AUTH_2FA_GGL],
+			'twofa_duo_api_hostname' =>		['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', 'twofa_duo_api_hostname')],
+			'twofa_duo_integration_key' =>		['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', 'twofa_duo_integration_key')],
+			'twofa_duo_secret_key' =>		['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', 'twofa_duo_secret_key')],
+			'twofa_duo_a_key' =>			['type' => API_STRING_UTF8, 'length' => DB::getFieldLength('config', 'twofa_duo_a_key')],
 		]];
 		if (!CApiInputValidator::validate($api_input_rules, $twofa, '/', $error)) {
 			self::exception(ZBX_API_ERROR_PARAMETERS, $error);

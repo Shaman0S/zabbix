@@ -2867,25 +2867,25 @@ return [
 				'length' => 1024,
 				'default' => ''
 			],
-			'2fa_type' => [
+			'twofa_type' => [
 				'null' => false,
 				'type' => DB::FIELD_TYPE_INT,
 				'length' => 10,
 				'default' => '0'
 			],
-			'2fa_duo_api_hostname' => [
+			'twofa_duo_api_hostname' => [
 				'null' => false,
 				'type' => DB::FIELD_TYPE_TEXT
 			],
-			'2fa_duo_integration_key' => [
+			'twofa_duo_integration_key' => [
 				'null' => false,
 				'type' => DB::FIELD_TYPE_TEXT
 			],
-			'2fa_duo_secret_key' => [
+			'twofa_duo_secret_key' => [
 				'null' => false,
 				'type' => DB::FIELD_TYPE_TEXT
 			],
-			'2fa_duo_a_key' => [
+			'twofa_duo_a_key' => [
 				'null' => false,
 				'type' => DB::FIELD_TYPE_TEXT
 			]

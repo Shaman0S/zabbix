@@ -11,7 +11,7 @@
 
 		$form.submit(function() {
 			var proceed = !warn
-				|| $('[name=2fa_type]:checked').val() == $('[name=db_2fa_type]').val()
+				|| $('[name=twofa_type]:checked').val() == $('[name=db_twofa_type]').val()
 				|| confirm(<?= json_encode(
 					_('Switching two factor authentication method will reset all except this session! Continue?')
 				) ?>);

@@ -19,11 +19,11 @@ class CControllerTwofaUpdate extends CController {
 		$fields = [
 			'form_refresh' =>		'string',
 			'update' =>			'string',
-			'2fa_type' =>			'in '.ZBX_AUTH_2FA_NONE.','.ZBX_AUTH_2FA_DUO.','.ZBX_AUTH_2FA_GGL,
-			'2fa_duo_api_hostname' =>	'db config.2fa_duo_api_hostname',
-			'2fa_duo_integration_key' => 	'db config.2fa_duo_integration_key',
-			'2fa_duo_secret_key' =>		'db config.2fa_duo_secret_key',
-			'2fa_duo_a_key' =>		'db config.2fa_duo_a_key'
+			'twofa_type' =>			'in '.ZBX_AUTH_2FA_NONE.','.ZBX_AUTH_2FA_DUO.','.ZBX_AUTH_2FA_GGL,
+			'twofa_duo_api_hostname' =>	'db config.twofa_duo_api_hostname',
+			'twofa_duo_integration_key' => 	'db config.twofa_duo_integration_key',
+			'twofa_duo_secret_key' =>	'db config.twofa_duo_secret_key',
+			'twofa_duo_a_key' =>		'db config.twofa_duo_a_key'
 		];
 
 		$ret = $this->validateInput($fields);
@@ -52,20 +52,20 @@ class CControllerTwofaUpdate extends CController {
 	 */
 	private function validateDuoTwofa() {
 		$twofa_fields = [
-			'2fa_type', '2fa_duo_api_hostname', '2fa_duo_integration_key',
-			'2fa_duo_secret_key', '2fa_duo_a_key'
+			'twofa_type', 'twofa_duo_api_hostname', 'twofa_duo_integration_key',
+			'twofa_duo_secret_key', 'twofa_duo_a_key'
 		];
 		$twofa_auth = [
-			'2fa_type' => CTwofaHelper::get(CTwofaHelper::TWOFA_TYPE),
-			'2fa_duo_api_hostname' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_API_HOSTNAME),
-			'2fa_duo_integration_key' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_INTEGRATION_KEY),
-			'2fa_duo_secret_key' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_SECRET_KEY),
-			'2fa_duo_a_key' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_A_KEY)
+			'twofa_type' => CTwofaHelper::get(CTwofaHelper::TWOFA_TYPE),
+			'twofa_duo_api_hostname' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_API_HOSTNAME),
+			'twofa_duo_integration_key' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_INTEGRATION_KEY),
+			'twofa_duo_secret_key' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_SECRET_KEY),
+			'twofa_duo_a_key' => CTwofaHelper::get(CTwofaHelper::TWOFA_DUO_A_KEY)
 		];
 		$this->getInputs($twofa_auth, $twofa_fields);
 
-		if ($twofa_auth['2fa_type'] == ZBX_AUTH_2FA_NONE ||
-		    $twofa_auth['2fa_type'] == ZBX_AUTH_2FA_GGL) {
+		if ($twofa_auth['twofa_type'] == ZBX_AUTH_2FA_NONE ||
+		    $twofa_auth['twofa_type'] == ZBX_AUTH_2FA_GGL) {
 			return true;
 		}
 		foreach ($twofa_fields as $field) {
@@ -108,14 +108,14 @@ class CControllerTwofaUpdate extends CController {
 			return;
 		}
 
-		$fields = ['2fa_type' => ZBX_AUTH_2FA_NONE];
+		$fields = ['twofa_type' => ZBX_AUTH_2FA_NONE];
 
-		if ($this->getInput('2fa_type', ZBX_AUTH_2FA_NONE) == ZBX_AUTH_2FA_DUO) {
+		if ($this->getInput('twofa_type', ZBX_AUTH_2FA_NONE) == ZBX_AUTH_2FA_DUO) {
 			$fields += [
-				'2fa_duo_api_hostname' =>	'',
-				'2fa_duo_integration_key' => 	'',
-				'2fa_duo_secret_key' =>		'',
-				'2fa_duo_a_key' =>		''
+				'twofa_duo_api_hostname' =>	'',
+				'twofa_duo_integration_key' => 	'',
+				'twofa_duo_secret_key' =>	'',
+				'twofa_duo_a_key' =>		''
 			];
 		}
 
@@ -127,7 +127,7 @@ class CControllerTwofaUpdate extends CController {
 			$result = API::Twofa()->update($data);
 
 			if ($result) {
-				if (array_key_exists('2fa_type', $data)) {
+				if (array_key_exists('twofa_type', $data)) {
 					$this->invalidateSessions();
 				}
 

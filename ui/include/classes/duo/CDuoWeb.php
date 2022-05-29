@@ -131,14 +131,14 @@ class CDuoWeb
     {
 	// Session was reset sow we can't use CTwofaHelper (API calls)
 	// get parameters directly from DB
-	$result = DBselect('SELECT 2fa_duo_integration_key, 2fa_duo_secret_key, 2fa_duo_a_key FROM config');
+	$result = DBselect('SELECT twofa_duo_integration_key, twofa_duo_secret_key, twofa_duo_a_key FROM config');
 	$db_twofa =[];
 	while ($row = DBfetch($result)) {
 		$db_twofa[] = $row;
 	}
-	$ikey = $db_twofa[0]['2fa_duo_integration_key'];
-	$skey = $db_twofa[0]['2fa_duo_secret_key'];
-	$akey = $db_twofa[0]['2fa_duo_a_key'];
+	$ikey = $db_twofa[0]['twofa_duo_integration_key'];
+	$skey = $db_twofa[0]['twofa_duo_secret_key'];
+	$akey = $db_twofa[0]['twofa_duo_a_key'];
 
         list($auth_sig, $app_sig) = explode(':', $sig_response);
 
